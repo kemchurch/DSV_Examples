@@ -1,17 +1,10 @@
-# DESDD_Validated_Integration.jl
-DESDD_Validated_Integration.jl is a Julia package used to complete the computer-assisted proofs in Section 5 of the paper [Validated integration of differential equations with state-dependent delay](https://www.researchgate.net/publication/359962364_Validated_integration_of_differential_equations_with_state-dependent_delay). 
-
-The package exports a single function called `main`, which returns 
-- `Φ` : An array of Chebyshev sequences corresponding to the initial condition (`Φ[1]`) and several of its derivatives, and the the solutions of four implicit step (`Φ[2]` to `Φ[5]`), rescaled to the domain [-1,1], with validation radius propagated forward by inclusion in the order zero term.
-- `Φ_function` : An array of functions, such that `Φ_function[n](t)`for n=1,...,4 returns the value of the hybrid enclosure of `Φ[n+1]` and several of its derivatives at argument `t::Interval{T} where T<:Real`.
-- `δ` : Vector of (interval) validated step sizes.
-- `r_δ` : Vector of validation radii for the step sizes.
-- `r_C⁰` : Vector of C⁰ enclosures for the solution of the DE-SDD.
-
-Each file in the folder [data](https://github.com/kemchurch/DESDD_Validated_Integration.jl/tree/main/data) has a name formatted in the style `P_X_initialcondition_Y.jld2`. The symbol `X` references the parameter set, while `Y` references the initial condition (see Section 5.2 of the paper). These files contain variables that represent numerically computed solutions of the relevant initial-value problems, as well as parameters required for the computer-assisted proofs.
+# DSV_Conjugacies.jl
+These codes may be used to complete the computer-assisted proofs in from [LINK].
 
 ## Installation
-The package requires Julia v1.6 or higher to be installed. Clone this repository, and activate/instantiate the package as follows:
+This package requires python with TensorFlow to be installed, in addition to Julia v1.6 or higher. It makes use of [PyCall](https://github.com/JuliaPy/PyCall.jl) to run TensorFlow commands in order to import the models from [Deep-Conjuacies](https://github.com/jbramburger/Deep-Conjugacies), included with permission at this repository in the saved_models folder. Usage of PyCall is platform-specific; consult the relevant documentation to ensure PyCall is working correctly, especially if you encounter errors with the function `import_model`.
+
+To install, clone this repository, and activate/instantiate the package as follows:
 ```julia
 import Pkg
 Pkg.activate("path/to/package") # edit the path accordingly
@@ -19,14 +12,50 @@ Pkg.instantiate()
 ```
 
 ## Usage
-To complete the proofs described in Section 5 of the paper, execute the following for each file in the data folder. Be aware that the proofs can require a lot of time to complete.
+To complete the proofs described in Section 3 of the paper, first import the package.
 
 ```julia
-using DESDD_Validated_Integration
-filename = "path/to/data/file.jld2" # edit the path accordingly (cf. folder data)
-Φ,Φ_function,δ,r_δ,r_C⁰ = main(filename)
+using DSV_Conjugacies
 ```
 
+### Batch proofs.
 
-# DSV_Conjugacies
-Codes to accompany "Computer-assisted proofs with deep neural networks"
+To complete one of the "batch" proofs from Section 3.2--3.5, the following sequence of commands should be completed.
+
+First, import the model. This will output a bunch of tensorflow information into the console; this is normal.
+```julia
+model_name = "Name" # set this this to one of "Rossler", "Lorenz2D", "Kuramoto1D" or "MackeyGlass"
+model_path = "path/to/model/folder" # edit the path accordingly, make sure the model matches with model_name
+eW,eB,dW,dB,gcoeffs = import_model(model_path,model_name)
+```
+
+Next, generate the encoder, decoder and conjugate mapping, and import the periodic points / dimension of the conjugate mapping.
+```julia
+enc,dec,g = h_g_functions(eW,eB,dW,dB,gcoeffs)
+in_points,dim = data(model_name)
+```
+
+Finally, run the batch proofs.
+```julia
+_,_,_,norm_correction_inner,norm_correction_outer,r_inner,r_outer = proofs(end,dec,g,in_points,r★,dim)  # set r★ as in the paper.
+```
+
+### Sequential proof of Section 3.6 and r★ optimization
+First, load the relevant data.
+```julia
+model_name = "Rossler"
+model_path = "path/to/model/folder" # edit the path to the Rossler c=11 model folder.
+eW,eB,dW,dB,gcoeffs = import_model(model_path,model_name)
+enc,dec,g = h_g_functions(eW,eB,dW,dB,gcoeffs)
+in_points,dim = data(model_name)
+```
+
+Next, to complete the proof for the period 6 point using the six-dimensional formulation (with minimal composition), run 
+````julia
+_,_,norm_correction,r = proof_sequential_1D(enc,dec,g,in_points[6],1E-8)
+````
+
+To optimize r★=10⁻ⁿ over n≥2 for the outer Poincare map, run 
+```julia
+_,_,norm_correction,r,n = best_r★_proof_1D_outer(enc,dec,g,in_points[6])
+```
