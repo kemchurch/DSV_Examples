@@ -1,0 +1,9 @@
+name = "DSV_Conjugacies"
+uuid = "b118986a-98a7-4b78-ac18-b0ea8e406645"
+authors = ["kemchurch <kevin.church@mcgill.ca>"]
+version = "0.1.0"
+
+[deps]
+ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
+PyCall = "438e738f-606a-5dbb-bf0a-cddfbfd45ab0"
+RadiiPolynomial = "f2081a94-c849-46b6-8dc9-07bb90ed72a9"
