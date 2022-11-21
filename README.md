@@ -1,5 +1,5 @@
 # DSV_Conjugacies.jl
-These codes may be used to complete the computer-assisted proofs in from [LINK].
+These codes may be used to complete the computer-assisted proofs from https://www.researchgate.net/publication/365613446_Computer-assisted_proofs_with_deep_neural_networks.
 
 ## Installation
 This package requires python with TensorFlow to be installed, in addition to Julia v1.6 or higher. It makes use of [PyCall](https://github.com/JuliaPy/PyCall.jl) to run TensorFlow commands in order to import the models from [Deep-Conjuacies](https://github.com/jbramburger/Deep-Conjugacies), included with permission at this repository in the saved_models folder. Usage of PyCall is platform-specific; consult the relevant documentation to ensure PyCall is working correctly, especially if you encounter errors with the function `import_model`.
