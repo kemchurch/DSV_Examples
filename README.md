@@ -37,7 +37,7 @@ in_points,dim = data(model_name)
 
 Finally, run the batch proofs.
 ```julia
-_,_,_,norm_correction_inner,norm_correction_outer,r_inner,r_outer = proofs(end,dec,g,in_points,r★,dim)  # set r★ as in the paper.
+_,_,_,norm_correction_inner,norm_correction_outer,r_inner,r_outer = proofs(enc,dec,g,in_points,r★,dim)  # set r★ as in the paper.
 ```
 
 ### Sequential proof of Section 3.6 and r★ optimization
