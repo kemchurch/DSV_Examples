@@ -18,7 +18,7 @@ To complete the proofs described in Section 3 of the paper, first import the pac
 using DSV_Conjugacies
 ```
 
-### Batch proofs.
+### Batch proofs
 
 To complete one of the "batch" proofs from Section 3.2--3.5, the following sequence of commands should be completed.
 
