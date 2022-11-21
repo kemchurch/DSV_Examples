@@ -23,7 +23,7 @@ function import_model(folder_string,model)
         g_data = [model_pyobject.c0.numpy();model_pyobject.c10.numpy();model_pyobject.c01.numpy();model_pyobject.c20.numpy();model_pyobject.c11.numpy();model_pyobject.c02.numpy();
         model_pyobject.d0.numpy();model_pyobject.d10.numpy();model_pyobject.d01.numpy();model_pyobject.d20.numpy();model_pyobject.d11.numpy();model_pyobject.d02.numpy()]
     end
-    return encoder_weights,encoder_biases,decoder_weights,decoder_biases,g_data
+    return encoder_weights,encoder_biases,decoder_weights,decoder_biases,big.(g_data)
 end
 
 function h_g_functions(e_weight,e_bias,d_weight,d_bias,g_data,model;alpha::T where T<:Real=BigFloat(1.67326324),scale::T where T<:Real=BigFloat(1.05070098))
