@@ -18,6 +18,16 @@ function ReLU(x::Real)
     end
 end
 
+function LeakyReLU(x::Real;α::Real=0.3)
+    if x<0
+        return α*x
+    elseif x>0
+        return one(typeof(α))*x
+    else
+        error("An argument to leaky ReLU violates DSV smoothness specification.")
+    end
+end
+
 function sgn(x::Real)
     if x<0
         return -one(typeof(x))

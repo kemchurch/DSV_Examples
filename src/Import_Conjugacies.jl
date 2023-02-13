@@ -1,4 +1,4 @@
-function import_model(folder_string,model)
+function import_conjugacy_model(folder_string,model)
     tf = pyimport("tensorflow")
     model_pyobject = tf.keras.models.load_model(folder_string)
     layers_enc = py"len"(model_pyobject.encoder.layers)
@@ -16,7 +16,7 @@ function import_model(folder_string,model)
     if model=="Rossler" || model=="Kuramoto1D" || model=="MackeyGlass"
         g_data = [model_pyobject.c1.numpy();model_pyobject.c2.numpy()]
     elseif model=="Lorenz1D"
-        g_data = x -> [model_pyobject.c1.numpy();model_pyobject.c2.numpy()]
+        g_data = [model_pyobject.c1.numpy();model_pyobject.c2.numpy()]
     elseif model=="Lorenz2D"
         g_data = [model_pyobject.c1.numpy();model_pyobject.c2.numpy();model_pyobject.d0.numpy(); model_pyobject.d1.numpy()]
     elseif model=="Kuramoto2D"
