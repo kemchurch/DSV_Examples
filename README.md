@@ -6,7 +6,7 @@ This package requires python with TensorFlow to be installed, in addition to Jul
 
 - [Deep-Conjuacies](https://github.com/jbramburger/Deep-Conjugacies), of which data is included included with permission at this repository in the saved_models folder. 
 
-- A model trained with the feedforward architecture described at (doi.org/10.1029/2019MS001965) the Zenodo repository cited therein.
+- A model trained with the feedforward architecture described at [doi.org/10.1029/2019MS001965](doi.org/10.1029/2019MS001965) with data from the Zenodo repository cited therein.
 
 Usage of PyCall is platform-specific; consult the relevant documentation to ensure PyCall is working correctly. Additionally, a TensorFlow installation is required.
 
