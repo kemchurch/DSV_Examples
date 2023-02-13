@@ -8,7 +8,7 @@ This package requires python with TensorFlow to be installed, in addition to Jul
 
 - A model trained with the feedforward architecture described at [doi.org/10.1029/2019MS001965](doi.org/10.1029/2019MS001965) with data from the Zenodo repository cited therein.
 
-Usage of PyCall is platform-specific; consult the relevant documentation to ensure PyCall is working correctly. Additionally, a TensorFlow installation is required. This package has only been tested in a Windows environment, and while it should function in other environments, some modofications might be required (e.g. path syntax in the DSV_Examples.jl file might need to be edited).
+Usage of PyCall is platform-specific; consult the relevant documentation to ensure PyCall is working correctly. Additionally, a TensorFlow installation is required. This package has only been tested in a Windows environment, and while it should function in other environments, some modifications might be required (e.g. path syntax in the DSV_Examples.jl file might need to be edited).
 
 To install, clone this repository, and activate/instantiate the package as follows:
 ```julia
